@@ -194,12 +194,12 @@ border-radius: 50%;
 @media only screen and (max-width:600px)
 { 
   .card_menu h3 {
-    font-size: 7em;
+    font-size: 5em;
     /* top: 60vh; */
     bottom: 125px;
   }
   div.card_menu:nth-of-type(3) h3 {
-    font-size: 5em;
+    font-size: 4em;
   } 
   div.card_menu:nth-of-type(4) h3 {
     font-size: 4.5em;
