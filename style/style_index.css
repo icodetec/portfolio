@@ -1,0 +1,215 @@
+*
+{
+  margin: 0;
+  padding: 0;
+  box-sizing: 0;
+  text-decoration: none;
+  list-style: none;
+  font-family: var(--primary-font);
+}
+body{
+  font-size: var(--font-size);
+  background: var(--primary-color);
+}
+.topo
+{ 
+  display: var(--topo_display);
+  justify-content: var(--topo_justify-content);
+  padding: var(--topo_padding);
+  background: var(--primary-color);
+  border-bottom: var(--topo_border-bottom);
+}
+.topo h1, h2
+{ 
+  font-family: var(--second-font);
+  font-size: 1.5em;
+  color:  var(--second-color);
+}
+.topo h1 span
+{
+  background:var(--topo_background_title);   
+  width: 30px;
+  height: 30px;
+  display: inline-block;  
+  border-radius: 50%;
+  text-align: center;
+  line-height: 1.5; 
+}
+.container_menu
+{
+  width: 100%;
+  height: 90vh;
+  position: relative;
+  text-align: center;
+  background: #000;
+  overflow: hidden;
+}
+.card_menu {
+  /* width: 750px; */
+  height: 85vh;
+  background-image: var(--main_background-image);
+  background-color: #cccccc; /* Used if the image is unavailable */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; 
+  position: absolute;
+  top: 15px;
+  right: 0px;
+  left: 0px;
+  margin: auto;
+  overflow: hidden;
+  -moz-transform: translateX(15%);
+  -ms-transform: translateX(15%); /* IE 9 */
+  -webkit-transform: translateX(15%); /* Chrome, Safari, Opera */
+  transform: translateX(15%);
+  z-index: 1;
+  opacity: 0;
+  transition: 1s;
+}
+.card_menu h3
+{ 
+  font-size: 10em;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  text-align: center;
+  bottom: 90px;
+  z-index: 2;
+  text-shadow: 0 0px 7px #fff, 0px 4px 8px rgba(0,0,0,0.35), 0px 3px 30px rgba(0,0,0,0.15);
+}
+.card_menu a
+{
+  color: #ffff;
+}
+.card_menu img
+{
+  width: 390px;
+  position: absolute;
+  right: 0px;
+  left: 0px;
+  margin: auto;
+  -moz-transform: translateY(15%);
+  -ms-transform: translateY(15%); /* IE 9 */
+  -webkit-transform: translateY(15%); /* Chrome, Safari, Opera */
+  transform: translateY(15%);
+  opacity: 0;
+}
+.controller
+{
+  width: 380px;
+  display: flex;
+  justify-content: space-between;
+  margin: 75vh auto;
+  padding: 10px;
+  position: absolute;
+  z-index: 7;
+  left: 0;
+  right: 0;
+}
+.next, .prev
+{ 
+font-size: 15px;
+color: #000;
+cursor: pointer;
+padding: 5px;
+background: #fff;
+width: 15px;
+height: 15px;
+padding: 15px;
+border-radius: 50%;
+}
+.footer
+{
+  background: var(--primary-color);
+  color: var(--second-color);
+  padding: var(--topo_padding);
+  border-top: var(--topo_border-bottom);
+  display: flex;
+  justify-content: center;
+  font-size: 1.5em;
+}
+.link_creditos
+{
+  color:#9a4eff;
+  margin-left: 10px;
+
+}
+
+.active_menu
+{ 
+
+  -moz-transform: translateX(0%) !important;
+  -ms-transform: translateX(0%) !important; /* IE 9 */
+  -webkit-transform: translateX(0%) !important; /* Chrome, Safari, Opera */
+  transform: translateX(0%) !important;
+  transition: 2s;
+  z-index: 5 !important;
+  opacity: 1 !important;
+}
+.active_menu_next
+{ 
+  -moz-transform: translateX(-15%) !important;
+  -ms-transform: translateX(-15%) !important; /* IE 9 */
+  -webkit-transform: translateX(-15%) !important; /* Chrome, Safari, Opera */
+  transform: translateX(-15%) !important;
+  transition: 1s;
+  z-index: 5 !important;
+  opacity: 0 !important;
+  
+}
+.active_image
+{ 
+  -moz-transform: translateY(2%) !important;
+  -ms-transform: translateY(2%) !important; /* IE 9 */
+  -webkit-transform: translateY(2%) !important; /* Chrome, Safari, Opera */
+  transform: translateY(2%) !important;
+  transition: transform 5s, opacity 5s;
+  z-index: 1 !important;
+  opacity: 1 !important;
+}
+
+/*Responsividade*/
+@media screen and (max-width:980px)
+{ 
+  .card_menu h3 {
+    font-size: 15em;
+    /* top: 55vh; */
+    bottom: 125px;
+  }
+  div.card_menu:nth-of-type(3) h3 {
+    font-size: 11em;
+  } 
+  div.card_menu:nth-of-type(4) h3 {
+    font-size: 9em;
+  }  
+  .card_menu img {
+    width: 70%;
+    bottom: 2px;
+  }
+  .controller {
+    width: 250px;
+  }    
+   
+}
+@media only screen and (max-width:600px)
+{ 
+  .card_menu h3 {
+    font-size: 7em;
+    /* top: 60vh; */
+    bottom: 125px;
+  }
+  div.card_menu:nth-of-type(3) h3 {
+    font-size: 5em;
+  } 
+  div.card_menu:nth-of-type(4) h3 {
+    font-size: 4.5em;
+  }  
+  .card_menu img {
+    width: 100%;
+    bottom: 2px;
+  }
+  .card_menu:nth-of-type(2) img {
+    bottom: 2px;
+  }
+  
+}

@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Email Laravel</title>
+    <meta name="author" content="">
+    <!-- css -->
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+
+    <script src="highlight/highlight.min.js"></script>
+    <link rel="stylesheet" href="highlight/a11y-dark.min.css">
+   
+   
+</head>
+<body>
+
+    
+    
+    <section>
+        <div class="container">
+            <header>
+                <h1>Email Laravel</h1>
+            </header>
+        </div>
+    </section>
+
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>Baixar o código completo</h2>
+            </header>
+            <div class="button_dawload">
+                <a target="_blank"  href="https://github.com/icodetec/email_laravel">Dawnload</a><br>
+            </div>
+            <span>Obs: Altere o Arquivo ".Env" (Ver passo 8.1º abaixo)</span>
+        </div>
+    </section>
+
+    
+    <section>
+        <div class="container">
+            <header>
+                <h2>1º) Baixar o Laravel</h2>
+            </header>
+            <figure class="highlight">
+                <span>-- composer create-project laravel/laravel Send_Email<br>
+                </span>
+            </figure>
+        </div>
+    </section>
+
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>2º) Crie o Contactcontroller</h2>
+            </header>
+            <p>2.1) Acesse a Pasta da Aplicação(Send_Email)</p>
+            <figure class="highlight">
+                <span>
+                    --cd send_email
+                </span>
+            </figure>
+            <p>2.2) Crie o ContactController</p>
+            <figure class="highlight">
+                <span>
+                    --php artisan make:controller ContactController --resource
+                </span>
+            </figure>
+        </div>
+    </section>
+
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>3º) Crie uma Rota para o Controller(Contactcontroller)</h2>
+            </header>
+            <figure class="highlight"></figure>
+            
+            <pre><code class="language-php">
+                Route::resources(['/' => 'App\Http\Controllers\ContactController'::class])->name('email');
+            </code></pre>
+        </div>
+    </section>
+
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>4º) Configure o Método Index no ContactController para chamar a view</h2>
+            </header>
+            <pre><code class="language-php">
+                public function index()
+                {
+                    return view('contact.index');
+                }
+            </code></pre>
+            
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>5º) Acessa a Pasta Resource -> Views para Criar a view Formulário</h2>
+            </header>
+            <p>5.1) Crie uma Pasta com o Nome Contact</p>
+              <img src="imagens/Capturar1.PNG" alt="">
+            <p>5.2) Dentro da Pasta Contact Crie o Arquivo "index.blade.php" para Armazenar a View Formulário</p>
+            <p>5.3) Baixe a Imagem para o Background do Formulário: https://br.freepik.com/vetores-gratis/fundo-de-esferas-abstratas_20289270.htm</p>
+            <p>5.4) Insira a imagem Dentro de public->assets->img || É necessário criar as pastas assets e img</p>
+            <p>5.5) Insira o código Abaixo no Arquivo "index.blade.php"</p>
+            <pre><code class="language-html">
+            &lt;!DOCTYPE html&gt;
+            &lt;html lang="pt-br"&gt;
+            &lt;head&gt;
+                &lt;meta charset="UTF-8"&gt;
+                &lt;meta http-equiv="X-UA-Compatible" content="IE=edge"&gt;
+                &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+                &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"/&gt;
+                &lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/&gt;
+
+                &lt;title>Contato&lt;/title&gt;
+                
+                
+                &lt;style&gt;
+                    body
+                    { 
+                    background:#f7f7f7; 
+                    }
+                    textarea:hover, 
+                    input:hover, 
+                    textarea:active, 
+                    input:active, 
+                    textarea:focus, 
+                    input:focus,
+                    button:focus,
+                    button:active,
+                    button:hover,
+                    label:focus,
+                    .btn:active,
+                    .btn.active
+                    {
+                        outline:0px !important;
+                        -webkit-appearance:none;
+                        box-shadow: none !important;
+                    }
+                    .icon
+                    {
+                        color:#af00ff;
+                    } 
+                    .fomr-col
+                    { 
+                        background-image: url("{{ asset('assets/img/background.jpg') }}");  /* The image used */
+                        background-color: #cccccc; /* Used if the image is unavailable */
+                        background-position: center; /* Center the image */
+                        background-repeat: no-repeat; /* Do not repeat the image */
+                        background-size: cover; /* Resize the background image to cover the entire container */
+                        border-radius: 10px;
+                        -webkit-border-radius: 10px;
+                        -moz-border-radius: 10px;
+                    }
+                &lt;/style&gt;
+                &lt;/head&gt;
+                &lt;body&gt;
+
+                &lt;div id="container" class="container mt-5"&gt;
+                    <!--Inicio Linha -->
+                    &lt;div class="row pt-2"&gt;
+                        <!-- Coluna -->
+                        &lt;div class="col-2 col-md-4 col-sm-4"&gt;&lt;/div&gt;    
+                        <!-- Coluna -->
+                        &lt;div class="col-8 col-md-4 col-sm-4 fomr-col border border-1 p-3"&gt;
+                            &lt;div class="icon text-center"&gt;
+                                &lt;i class="fa-solid fa-envelope fa-3x"&gt;&lt;/i&gt;     
+                            &lt;/div&gt; 
+                            @if(count($errors) > 0)
+                                &lt;ul&gt;
+                                    @foreach($errors->all() as $erro)
+                                        &lt;li&gt;{{$erro}}&lt;/li&gt;
+                                    @endforeach
+                                &lt;/ul&gt;
+                            @endif    
+                            &lt;form id="contato_email" name="contato_email" method="POST" action="{{url('store')}}"&gt;
+                                {{ csrf_field() }}
+                                &lt;div class="mt-5 mb-4"&gt;
+                                    &lt;input class="form-control p-2" name="name" id="name" placeholder="Nome" value="{{ old('name') }}"&gt;
+                                &lt;/div&gt;    
+                                &lt;div class="mb-4"&gt;
+                                    &lt;input  class="form-control p-2" name="email" id="email" placeholder="Email@example.com"  value="{{ old('email') }}"&gt;
+                                &lt;/div&gt;
+                                &lt;div class="mb-4"&gt;
+                                    &lt;textarea class="form-control" name="menssage" id="message" placeholder="menssagem" rows="4"  value="{{ old('menssage') }}"&gt;&lt;/textarea&gt;
+                                &lt;/div&gt;
+                                &lt;button type="submit" class="btn mt-3 btn-primary"&gt;Enviar&lt;/button&gt;
+                            &lt;/form&gt;
+                        &lt;/div&gt; 
+                        <!-- Coluna -->   
+                        &lt;div class="col-2 col-md-4 col-sm-4"&gt;&lt;/div&gt;
+                    <!--Final Linha -->    
+                    &lt;/div&gt; 
+                &lt;/div&gt; 
+                &lt;script src="https://code.jquery.com/jquery-3.6.0.min.js"&gt;&lt;/script&gt;
+                &lt;script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"&gt;&lt;/script&gt;
+                &lt;script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"&gt;&lt;/script&gt;
+
+            &lt;/body&gt;
+            &lt;/html&gt;
+                   
+            </code></pre>
+            
+
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <header>
+               <h2>6º)  Validação Back-End</h2>
+            </header><br>
+            <p>6.1) Crie a Rota store para Passar os Dados do Formulário para o ContactController</p>
+            <pre><code class="language-php">
+                Route::resources([
+                '/' => 'App\Http\Controllers\ContactController'::class,
+                '/store' => 'App\Http\Controllers\ContactController'::class,
+                ]);
+            </code></pre>
+            <p>6.2) Crie um arquivo request para armazenar as regras de validação</p>
+              <span>--php artisan make:request StoreUserRequest</span>
+            <p>O arquivo vai ficar armazenado em: app->http->requests</p>
+            <p>6.3) Substitua request por StoreUserRequest no método store do ContactController</p>
+            <pre><code class="language-php">
+
+                use App\Http\Requests\StoreUserRequest;
+                
+                public function store(StoreUserRequest $request)
+                {        
+                    return json_encode("Dados Enviados com Sucesso.");
+                }
+            </code></pre>
+            <p>6.4) Configure o arquivo StoreUserRequest(app->http->requests) com as seguites regras:</p>
+            <pre><code class="language-php">
+                class StoreUserRequest extends FormRequest
+                {
+                    /**
+                    * Determine if the user is authorized to make this request.
+                    *
+                    * @return bool
+                    */
+                    public function authorize()
+                    {
+                        return true;
+                    }
+
+                    /**
+                    * Get the validation rules that apply to the request.
+                    *
+                    * @return array
+                    */
+                    public function rules()
+                    {
+                        return [
+                            'name' => ['required'],
+                            'email' => ['required','email:rfc,dns'],
+                            'menssage' => 'required',
+                        ];
+                    }
+
+                    public function messages()
+                    {  
+                        return [
+                            'name.required' => "O Campo Nome Obrigatório",
+                            'email.required' => 'O Campo Email é Obrigatório',
+                            'email' => 'Email Inválido',
+                            'menssage.required' => 'O Campo mensagem é Obrigatório',
+                        ];    
+                    }
+                }
+            </code></pre>
+            <p>6.5) Criando uma regra Especial para validar o Nome(Nome e sobrenome)</p>
+            <p>6.6) Crie o arquivo FullName</p>
+            <span>--php artisan make:rule FullName</span>
+            <p>Ele vai ficar armazenado em app->rules->FullName</p>
+            <p>6.7) Abra o arquivo e insira a seguite regra</p>
+            <pre><code class="language-php">
+                /**
+                * Determine if the validation rule passes.
+                *
+                * @param  string  $attribute
+                * @param  mixed  $value
+                * @return bool
+                */
+               public function passes($attribute, $value)
+               {
+                        $status = preg_match('|^[\pL\s]+$|u', $value);
+                        if($status == true)
+                        {
+                            $count = substr_count($value, ' ');
+                            if($count >= 1)
+                            {
+                                return true;
+                            }
+                            else{
+                                return false;
+                            }
+
+                        }else{
+                            return false;
+                        } 
+               }
+           
+               /**
+                * Get the validation error message.
+                *
+                * @return string
+                */
+               public function message()
+               {
+                   return 'Por favor, Insira seu nome completo';
+               }  
+            </code></pre>
+            <p>6.8) Acesse o StoreUserRequest(app->http->requests) e adicione o arquivo FullName(app->roles->FullName) e o "new FullName" ao arquivo</p>
+            <pre><code class="language-php">
+                use App\Rules\FullName;/*Adiciona o arquivo FullName*/
+
+                public function rules()
+                {
+                    return [
+                        /*'name' => ['required'], como era*/
+                        'name' => ['required', new FullName],/*como deve ficar*/
+                        'email' => ['required','email:rfc,dns'],
+                        'menssage' => 'required',
+                    ];
+                }
+            </code></pre>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>7º) Testando as validações do Formulário</h2>
+            </header>
+            <p>Acesse o Localhost</p>
+            <img src="imagens/Capturar2.PNG" alt="">
+            
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>8º)Configuração dos Arquivos de Email</h2>
+            </header>
+            <p>8.1º) Configure o arquivo ".env" com o smtp da sua hospedagem ou use uma ferramenta para teste de envio de emails.</p>
+            <p>Dica: https://mailtrap.io/</p>
+            <pre><code class="language-php">
+                MAIL_MAILER=smtp
+                MAIL_HOST=smtp.mailtrap.io
+                MAIL_PORT=
+                MAIL_USERNAME=
+                MAIL_PASSWORD=
+                MAIL_ENCRYPTION=tls
+            </code></pre>    
+            <p>8.2º) Crie o arquivo email(Send_email)</p>
+            <span>--php artisan make:mail Send_email</span>
+            <p>8.3º) Insira o Código Abaixo no Arquivo Send_email(app->Mail)</p>
+            <pre><code class="language-php">
+                namespace App\Mail;
+
+                use Illuminate\Bus\Queueable;
+                use Illuminate\Contracts\Queue\ShouldQueue;
+                use Illuminate\Mail\Mailable;
+                use Illuminate\Queue\SerializesModels;
+                
+                class Send_email extends Mailable
+                {
+                    use Queueable, SerializesModels;
+                
+                    public $data;
+                
+                    /**
+                     * Create a new message instance.
+                     *
+                     * @return void
+                     */
+                    public function __construct($data)
+                    {
+                        $this->data = $data;
+                    }
+                
+                    /**
+                     * Build the message.
+                     *
+                     * @return $this
+                     */
+                    public function build()
+                    {
+                        return $this
+                        ->from( config('mail.from.address') )
+                        ->subject('contato do site')
+                        ->view('contact.message')
+                        ->with('data', $this->data);
+                    }
+            </code></pre>
+            <p>8.4º) Acesse a Pasta Contact(resources->views->contact) Crie um Arquivo "message.blade.php" 
+                para configurar a mensagem que vai para o email.</p>
+            <pre><code class="language-html">
+                &lt;!DOCTYPE html&gt;
+                &lt;html lang="pt-br"&gt;
+                &lt;head&gt;
+                    &lt;meta charset="UTF-8"&gt;
+                    &lt;meta http-equiv="X-UA-Compatible" content="IE=edge"&gt;
+                    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+                    &lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"/&gt;
+    
+                    &lt;title>Contato&lt;/title&gt;
+                &lt;/head&gt;
+                &lt;body&gt;
+
+                    &lt;div style=" font-family: 'Poppins', sans-serife; width: 550px; background:#B9AAEB; color:#ffffff; padding: 20px; border-radius: 10px;"&gt;
+                    &lt;h1 style="text-align:center; font-size: 30px; padding-top:20px;"&gt;Mensagem De Contato&lt;/h1&gt;
+                        &lt;p style="text-align: center; padding-bottom: 50px;"&gt;
+                        {{$data['menssage']}}
+                        &lt;/p>
+                        &lt;span style="text-align:center; padding-top: 20px;"&gt;{{$data['name']}}&lt;/span&gt;&lt;br&gt;
+                        &lt;span style="text-align:center;"&gt;{{$data['email']}}&lt;/span&gt;
+                    &lt;/div&gt;
+
+              &lt;/body&gt;
+              &lt;/html&gt; 
+
+            </code></pre> 
+            <p>8.5º) Crie um controller(DataFormController) para colocar os dados do email</p>
+            <span>--php artisan make:controller DataFormController</span>
+            <p>8.6º) Abra o arquivo(DataFormController) e Insira o Código Abaixo</p>
+            <pre><code class="language-php">
+                use Mail;
+                use App\Mail\Send_email;
+
+                class DataFormController extends Controller
+                {
+                    private $nome;
+                    private $email;
+                    private $mensagem;
+
+
+                    public function __construct(Request $request)
+                    {
+                        $this->name = $request->name;
+                        $this->email = $request->email;
+                        $this->menssage = $request->menssage;
+                    }
+
+                    public function SendEmail()
+                    {   
+                    $data = array(
+                        'name' => $this->name, 
+                        'email' => $this->email,
+                        'menssage' => $this->menssage
+                    );
+
+                        Mail::to($data['email']) //Mail::to( config('mail.from.address'))
+                        ->send( new Send_email($data));
+
+                    }
+                }
+            </code></pre>
+            <p>8.6º) Abra o ContactController e Adicione o Código Abaixo</p>
+            <pre><code class="language-php">
+                use App\Http\Controllers\DataFormController;
+                public function store(StoreUserRequest $request)
+                {   
+                            
+                    $contact = new DataFormController($request);
+
+                    try 
+                    {   
+                        $contact->sendEmail();
+                        return json_encode("Acesse sua Caixa de Email e Verifique se a Mensagem foi Enviada");
+                    }
+                    catch (\Throwable $error)
+                    {
+                        $contact->sendEmail();
+                        return  json_encode("error", "Ocorreu um erro inesperado: {$error->getMessage()}");
+                        return false;
+                    
+                    }
+
+                }
+            </code></pre>    
+        </div>
+    </section>
+
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>9º) Validação Front-End</h2>
+            </header>
+            <p>10.1) Acesse o arquivo "index.blade.php" e substitua o Código original pelo Código abaixo.</p>
+            <pre><code class="language-html">
+                &lt;!DOCTYPE html&gt;
+                &lt;html lang="pt-br"&gt;
+                &lt;head&gt;
+                    &lt;meta charset="UTF-8"&gt;
+                    &lt;meta http-equiv="X-UA-Compatible" content="IE=edge"&gt;
+                    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+                    &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"/&gt;
+                    &lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/&gt;
+                    &lt;script src="https://code.jquery.com/jquery-3.6.0.min.js"&gt;&lt;/script&gt;
+                   
+    
+                    &lt;title>Contato&lt;/title&gt;
+                    
+                    
+                    &lt;style&gt;
+                        body
+                        { 
+                        background:#f7f7f7; 
+                        }
+                        textarea:hover, 
+                        input:hover, 
+                        textarea:active, 
+                        input:active, 
+                        textarea:focus, 
+                        input:focus,
+                        button:focus,
+                        button:active,
+                        button:hover,
+                        label:focus,
+                        .btn:active,
+                        .btn.active
+                        {
+                            outline:0px !important;
+                            -webkit-appearance:none;
+                            box-shadow: none !important;
+                        }
+                        .icon
+                        {
+                            color:#af00ff;
+                        } 
+                        .fomr-col
+                        { 
+                            background-image: url("{{ asset('assets/img/background.jpg') }}");  /* The image used */
+                            background-color: #cccccc; /* Used if the image is unavailable */
+                            background-position: center; /* Center the image */
+                            background-repeat: no-repeat; /* Do not repeat the image */
+                            background-size: cover; /* Resize the background image to cover the entire container */
+                            border-radius: 10px;
+                            -webkit-border-radius: 10px;
+                            -moz-border-radius: 10px;
+                        }
+                    &lt;/style&gt;
+                    &lt;/head&gt;
+                    &lt;body&gt;
+    
+                    &lt;div id="container" class="container mt-5"&gt;
+                        <!--Inicio Linha -->
+                        &lt;div class="row pt-2"&gt;
+                            <!-- Coluna -->
+                            &lt;div class="col-2 col-md-4 col-sm-4"&gt;&lt;/div&gt;    
+                            <!-- Coluna -->
+                            &lt;div class="col-8 col-md-4 col-sm-4 fomr-col border border-1 p-3"&gt;
+                                &lt;div class="icon text-center"&gt;
+                                    &lt;i class="fa-solid fa-envelope fa-3x"&gt;&lt;/i&gt;     
+                                &lt;/div&gt; 
+                                
+                                &lt;div class="alert alert-danger d-none alert_box" role="alert"&gt;&lt;/div&gt;
+
+                                &lt;form id="contato_email" name="contato_email"&gt;
+                                    {{ csrf_field() }}
+                                    &lt;div class="mt-5 mb-4"&gt;
+                                        &lt;input class="form-control p-2" name="name" id="name" placeholder="Nome" value=""&gt;
+                                    &lt;/div&gt;    
+                                    &lt;div class="mb-4"&gt;
+                                        &lt;input  class="form-control p-2" name="email" id="email" placeholder="Email@example.com"  value=""&gt;
+                                    &lt;/div&gt;
+                                    &lt;div class="mb-4"&gt;
+                                        &lt;textarea class="form-control" name="menssage" id="message" placeholder="menssagem" rows="4"  value=""&gt;&lt;/textarea&gt;
+                                    &lt;/div&gt;
+                                    &lt;button type="submit" class="btn mt-3 btn-primary"&gt;Enviar&lt;/button&gt;
+                                &lt;/form&gt;
+                            &lt;/div&gt; 
+                            <!-- Coluna -->   
+                            &lt;div class="col-2 col-md-4 col-sm-4"&gt;&lt;/div&gt;
+                        <!--Final Linha -->    
+                        &lt;/div&gt; 
+
+
+                        &lt;script&gt;
+                            //ENVIA OS DADOS PARA PAGINA(PHP) DE PROCESSAMENTO DE DADOS
+                          $('form[name="contato_email"]').submit(function(event)
+                          {   
+                             
+                              event.preventDefault();//Não atualiza a pagina após o submit
+                               
+                              //Validando Nome 
+                              var name  = $("#name").val();
+                              var regex =  /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/;//permite letras, letras com acento e espaços em branco. 
+                              var name_validate =  regex.test(name) && name.trim().split(' ').length >= 2;
+                              if(name_validate == false)
+                              {
+                                  $('.alert_box').removeClass('d-none').text("Digite seu Nome e Sobrenome");
+                                  return false;
+                              }
+                              
+                      
+                              //Validando Email
+                              var email = $("#email").val();
+                              var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/; 
+                              var email_validate =  regex.test(email);
+                              if(email_validate == false)
+                              { 
+                                $('.alert_box').addClass('d-none');//Fecha a div "alert_box" se ela estiver aberta no alert nome.  
+                                $('.alert_box').removeClass('d-none').text("Email inválido");
+                                return false;
+                              };
+                              
+                              //Validando Mensagem
+                              var message = $.trim($("#message").val().replace(/\s+/g, ' '));
+                              var message_value = message.length;
+                              if(message_value <= 10)
+                              {
+                                $('.alert_box').removeClass('d-none').text("Sua Mensagem deve ter mais de 10 Caracteres");
+                                return false;
+                              }
+                      
+                              $('.alert_box').removeClass('d-none').text("Enviando....");
+                             
+                              $.ajax({
+                                  url:"{{url('store')}}",
+                                  type:"post",
+                                  data: $(this).serialize(),//pega todos os dados do formulário
+                                  dataType: 'json',
+                                  success: function(dados)
+                                  {   
+                                    $('.alert_box').removeClass('d-none').html(dados);
+                                    $('form[name="contato_email"] input').val(' ');
+                                    $('form[name="contato_email"] textarea').val(' ');   
+                                  }
+                              });
+                          }); 
+                          &lt;/script&gt;
+
+                    &lt;/div&gt; 
+                    &lt;script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"&gt;&lt;/script&gt;
+                    &lt;script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"&gt;&lt;/script&gt;
+    
+                &lt;/body&gt;
+                &lt;/html&gt;
+                       
+                </code></pre>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>10º) Faça um Teste de Envio</h2>
+            </header>
+            <img src="imagens/Capturar3.PNG" alt="">
+            <img src="imagens/Capturar4.PNG" alt="">
+            <p>Caixa de Mensagem do Mailtrap</p>
+            <img src="imagens/Capturar5.PNG" alt="">
+        </div>
+    </section>
+
+   
+    <script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+*
+{
+  margin: 0;
+  padding: 0;
+  box-sizing: 0;
+  text-decoration: none;
+  list-style: none;
+  font-family: var(--primary-font);
+}
+body{
+  font-size: var(--font-size);
+  background: var(--primary-color);
+}
+/**********MENU**********/
+.topo
+{ 
+  display: var(--topo_display);
+  justify-content: var(--topo_justify-content);
+  padding: var(--topo_padding);
+  background: var(--primary-color);
+  border-bottom: var(--topo_border-bottom);
+}
+.topo h1, h2
+{ 
+  font-family: var(--second-font);
+  font-size: 1.5em;
+  color:  var(--second-color);
+}
+.topo h1 span
+{
+  background:var(--topo_background_title);   
+  width: 30px;
+  height: 30px;
+  display: inline-block;  
+  border-radius: 50%;
+  text-align: center;
+  line-height: 1.5; 
+}
+.container_main
+{
+  background: rgb(0, 0, 0);
+  width: 330px;
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+.container_main h3
+{
+  color: #fff;
+  font-size: 2.5em;
+} 
+.container_creditos
+{
+  margin-top: 50px;
+}
+li {
+  margin-bottom: 20px;
+}
+.container_creditos a
+{ 
+  font-size: 2em;
+  text-align: center;
+}
+.link_home
+{
+  color: #fff;
+  font-size: 2.5em;
+  background: linear-gradient(-45deg, #24ff72, #9a4eff);
+  width: 30%;
+  border-radius: 3px;
+  padding: 10px;
+}
+.footer_creditos
+{
+  background: var(--primary-color);
+  color: var(--second-color);
+  font-size: 1.5em;
+  text-align: center;
+  padding: var(--topo_padding);
+  border-top: var(--topo_border-bottom);
+  margin-top: 50px;
+}
+
+
+
+/*Responsividade*/
+@media screen and (max-width:980px)
+{ 
+  .footer_creditos {
+    margin-top: 250px;
+  }
+   
+}

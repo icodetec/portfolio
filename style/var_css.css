@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400&display=swap');
+
+:root{
+
+    --primary-font:'Josefin Sans', sans-serif;
+    --second-font:'Poppins', sans-serif;
+    --font-size:14px;
+    --primary-color: #000;
+    --second-color:#ffff;
+
+    /*topo/footer*/
+    --topo_display: flex;
+    --topo_justify-content: space-between;
+    --topo_padding: 15px;
+    --topo_border-bottom: 1px solid #ffffff57;
+    --topo_background_title:#1d9bf0;   
+
+    /*main*/
+    --main_width:100%;
+    --main_height:90vh;
+    --main_background-image:url("../imagens/background.png");
+    --main_margin: 15px 0 15px 0;
+   
+
+    /*Experiments*/
+    --primary-color_card:#1fa4e0;
+    --second-color_card: #00ffc0;
+    --third-color_card: #ff2c06;
+    --box_shadow_card: 0px 0px 15px;
+}

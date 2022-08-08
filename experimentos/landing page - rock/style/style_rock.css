@@ -1,0 +1,222 @@
+*
+{
+  margin: 0;
+  padding: 0;
+  box-sizing: 0;
+  text-decoration: none;
+  list-style: none;
+  font-family:var(--primary-font);
+}
+body{
+  background: var(--primary-color);
+  font-size: var(--font-size);
+}
+.topo
+{ 
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  background: var(--primary-color);
+  font-size: 1.2em;
+  color: var(--second-color);
+}
+.topo a
+{ 
+  font-size: 2.2em;
+  color: var(--second-color);
+  font-family:var(--second-font);
+}
+h1, h2, h3, h4, li
+{
+  font-family:var(--second-font);
+}  
+.container_main
+{
+  width: 100%;
+  position: relative;
+  height: calc(100vh - 95px);
+  padding-top: 20px;
+  background-image: url("../imagens/background.jpg"); /* The image used */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+}
+.container_main h2
+{
+  font-size: 15em;
+  text-align: center;
+  color: var(--second-color);
+  margin-top: 100px;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #0d0d0d, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+.container_main img
+{ 
+  width: 650px;
+  display: block;
+  margin: 0 auto;
+  margin-top: 150px;
+}
+.list
+{
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+  font-size: 3em;
+}
+ul{
+  display:flex;
+  flex-wrap: wrap;
+  justify-content:space-around;
+  color: black;
+  text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #f7f7f7;/*text stroke*/
+}
+
+/*************LINE UP*********************/
+.line_up
+{
+  width: 100%;
+  padding-top: 180px;
+  padding-bottom: 180px;
+
+}
+.line_up h3
+{ 
+  color: var(--second-color);
+  text-align: center;
+  font-size: 8em;
+}
+.line_up p
+{ 
+  font-size: 2em;
+  text-align: center;
+  padding: 8%;
+  color: var(--second-color);
+}
+.card{
+  width: 100%;
+  height: 100vh;
+  padding-top: 150px;
+  color: var(--second-color);
+}
+.card h4
+{ 
+  text-align: center;
+  font-size: 11em;
+}
+.card p
+{ 
+  font-size: 1.7em;
+  text-align: center;
+  padding-top: 70px;
+  padding-left: 8%;
+  padding-right: 8%;
+  color: #cacaca;
+}
+.card span
+{
+  font-style: italic;
+}
+.button {
+  width: 150px;
+  background-color: #f00;
+  display: block;
+  margin: 0 auto;
+  font-size: 1.5em;
+  color: var(--second-color);
+  padding: 12px 30px;
+  border-radius: 6px;
+  text-align: center;
+  cursor: pointer;
+}
+.line
+{
+  width: 80%;
+  height: 2px;
+  background-image: linear-gradient(to left, rgb(0, 0, 0) 1%,  #9d9d9d 50%, rgb(0, 0, 0) 100%), linear-gradient(to left, rgb(0, 0, 0) 1%, rgb(255, 255, 255) 50%, rgb(0, 0, 0) 100%);
+  background-size: 100% 3px;
+  background-position: 0% 0%, 0% 100%;
+  background-repeat: no-repeat;
+  background-color: #222;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 60px;
+}
+
+
+/**************CRÉDITOS******************/
+.creditos
+{
+  width: 100%;
+  height: 100vh;
+  padding-bottom: 100px;
+  background: #000;
+}
+.creditos h3
+{
+  color: var(--second-color);
+  text-align: center;
+  font-size: 11em;
+}
+.creditos a
+{
+  width: 340px;
+  display: block;
+  margin: 120px auto;
+  border-radius: 50%;
+}
+.creditos img {
+  width: 100%;
+  display: block;
+  border-radius: 50%;
+  animation:spin 20s linear infinite;
+}
+@-moz-keyframes spin { 
+  100% { -moz-transform: rotate(360deg); } 
+}
+@-webkit-keyframes spin { 
+  100% { -webkit-transform: rotate(360deg); } 
+}
+@keyframes spin { 
+  100% { 
+      -webkit-transform: rotate(360deg); 
+      transform:rotate(360deg); 
+  } 
+}
+
+
+/*************FOOTER*********************/
+.footer_experiments
+{
+  background: var(--primary-color);
+  color: var(--second-color);
+  font-size: 1.5em;
+  text-align: center;
+  padding: 15px;
+}
+
+@media screen and (max-width:900px)
+{ 
+  .container_main h2
+  {
+    margin-top: 270px; 
+  }
+   
+}
+@media screen and (max-width:800px)
+{ 
+  .container_main h2
+  {
+    margin-top: 35px; 
+  }
+  .line_up h3 {
+    font-size: 7em;
+  }  
+  .card h4 {
+    font-size: 8em;
+  }
+  .creditos h3
+  {
+    font-size: 9em;
+  }
+   
+}

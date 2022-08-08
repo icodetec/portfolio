@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Api laravel</title>
+    <meta name="author" content="">
+    <!-- css -->
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+</head>
+<body>
+
+    
+
+    <section>
+        <div class="container">
+            <header>
+                <h1>API Laravel Com Jwt</h1>
+            </header>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>Baixar o código completo</h2>
+            </header>
+            <div class="button_dawload">
+                <a target="_blank" href="https://github.com/icodetec/api_laravel">Dawnload</a><br>
+            </div>
+            <span>Obs: Insira o banco de dados no seu servidor, Veja o usuário cadastrado(passo 5º), faça os testes(passo 26º)<br>
+            </span><br>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>Funcionalidades da api</h2>
+            </header>
+            <p>login</p>
+            <p>Listar Dados</p>
+            <p>logout</p>
+        </div>
+    </section>
+
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>1º) Baixar o Laravel</h2>
+            </header>
+            <figure class="highlight">
+                <span>-- composer create-project laravel/laravel api_laravel_9_jwt<br>
+                </span>
+            </figure>
+            <p>Acesse o Localhost</p>
+            <img src="imagens/pagiana_index1.PNG" alt="">
+        </div>
+    </section>
+
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>2º) Crie um Banco de Dados</h2>
+            </header>
+            <p>Lembre-se de verificar a collation do seu laravel em config/database.php, a collation do seu banco deve ser a mesma do laravel.</p>
+            <p>Criando o Banco de Dados "api_jwt"</p>
+            <img src="imagens/criar_banco2.PNG" alt="">
+        </div>
+    </section>
+
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>3º) Ligando o Banco de Dados ao Laravel</h2>
+            </header>
+            <p>Configure o Arquivo .env</p>
+            <figure class="highlight">
+                    DB_CONNECTION=mysql<br>
+                    DB_HOST=127.0.0.1<br>
+                    DB_PORT=3306<br>
+                    DB_DATABASE=api_jwt<br>
+                    DB_USERNAME=root<br>
+                    DB_PASSWORD=<br>
+            </figure>
+        </div>
+    </section>
+
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>4º) AUTENTICAÇÃO</h2>
+            </header>
+            <p>Acesse a Pasta da Aplicação(api_laravel_9_jwt)</p>
+            <figure class="highlight">
+                <span>
+                    --cd api_laravel_9_jwt
+                </span>
+            </figure>
+            <p>Baixa os arquivos de autenticação</p>
+            <figure class="highlight">
+                <span>
+                    --composer require laravel/breeze --dev
+                </span>
+            </figure>
+            <p>instalar o pacote de autenticação.</p>
+            <figure class="highlight">
+                <span>
+                    --php artisan breeze:install
+                </span>
+            </figure>
+            <p>Execute o comando abaixo para instalar o npm. Ele irá gerar arquivos CSS e js min.</p>
+            <figure class="highlight">
+                <span>
+                    --npm install && npm run dev
+                </span>
+            </figure>
+            <p>Execute a Migrate</p>
+            <figure class="highlight">
+                <span>
+                    --php artisan migrate
+                </span>
+            </figure>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>5º) Cadastre um Usuário</h2>
+            </header>
+            <p>Email = joao1234@gmail.com</p>
+            <p>Senha = joao1234</p>
+            <img src="imagens/cadastro3.PNG" alt="">
+        </div>
+    </section>
+
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>6º) Criar uma Tabela para Armazenar os Dados dos Livros</h2>
+            </header>
+            <p>Crie uma migrate e uma model</p>
+            <span>--php artisan make:model listar_livros -m</span>
+            <p>Adicione o Código Abaixo na Migrate listar_livros(database/migrate) </p>
+            <figure class="highlight">
+                    Schema::create('listar_livros', function (Blueprint $table) {<br>
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; $table->increments('id_livros');<br>
+                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; $table->string('title',80);<br>
+                    });<br>
+            </figure>
+            <p>Executa a Migrate</p>
+            <span>--php artisan migrate</span>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>7º) Cadastre alguns dados na tabela listar livros</h2>
+            </header>
+            <img src="imagens/insert_dados_1.PNG" alt="">
+            <img src="imagens/insert_dados_2.PNG" alt="">
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>8º) Crie um Controller para Api</h2>
+            </header>
+            <span>--php artisan make:controller api\LivrosController\LivrosController --api</span> 
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>9º) Crie um Método index(Dentro de LivrosController) para Listar os Dados dos Livros</h2>
+            </header>
+            <p>Acesse controller/api</p>
+            <figure class="highlight">
+                    use App\Models\listar_livros;<br>
+                    public function index()<br>
+                        {<br>
+                            &nbsp;   &nbsp; &nbsp;  &nbsp;  &nbsp; &nbsp;$livros = listar_livros::all();<br>
+                            &nbsp;   &nbsp; &nbsp;  &nbsp;  &nbsp; &nbsp;return response()->json($livros);<br> 
+                        }<br>
+            </figure>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>10º) Crie uma Rota para Listar os Dados dos Livros</h2>
+            </header>
+            <p>Entra em routes/api.php</p>
+            <figure>
+                Route::get('livros', 'App\Http\Controllers\api\LivrosController\LivrosController@index')->name('listar_livros');<br>
+            </figure>
+            <p>teste = http://localhost/api_laravel_9_jwt/public/api/livros</p>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>11º) Acesse Packagist para Baixar a Versão Atual do Jwt</h2>
+            </header>
+            <p>https://packagist.org/packages/tymon/jwt-auth#dev-develop</p>
+            <img src="imagens/jwt_versao.PNG" alt="">
+            <p>Baixe o jwt para a sua Aplicação</p>
+            <span>
+                --composer require tymon/jwt-auth dev-develop<br>
+            </span>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>12º)Adicione o Provider ao Sistema</h2>
+            </header>
+            <p>Entre no config/app.php e coloque o link abaixo dentro dos Providers</p>
+            <figure>
+                /*<br>
+                * Package Service Providers...<br>
+                */<br>
+                ...
+                Tymon\JWTAuth\Providers\LaravelServiceProvider::class,<br>
+            </figure>
+        </div>
+    </section>
+
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>13º) Publique o Provider</h2>
+            </header>
+            <span>-- php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"</span>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>14º) Gerar uma Chave Secreta</h2>
+            </header>
+            <span>-- php artisan jwt:secret</span>
+            <p>Acesse o arquivo .env para verificar se a chave foi gerada</p>
+            <img src="imagens/chave_jwt.PNG" alt="">
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>15º) Implemente o jwt na Model User</h2>
+            </header>
+            <p>Acesse models/User.php</p>
+            <p>Insira o implements JWTSubject a classe</p>
+           <figure>
+                use Tymon\JWTAuth\Contracts\JWTSubject;<br>
+                class User extends Authenticatable implements JWTSubject<br>
+                {<br>
+                 ....<br>
+                }<br>
+           </figure>
+        </div>
+    </section>
+
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>16º) Insira os Métodos jwt na Model User</h2>
+            </header>
+            <p>Acesse models/User.php</p>
+           <figure>
+            public function getJWTIdentifier()<br>
+            {<br>
+                &nbsp;   &nbsp; &nbsp;  &nbsp;  &nbsp; &nbsp;return $this->getKey();<br>
+            }<br>
+           </figure>
+           <br>
+           <br>
+           <figure>
+            /**<br>
+            * Return a key value array, containing any custom claims to be added to the JWT.<br>
+            *<br>
+            * @return array<br>
+            */<br>
+            public function getJWTCustomClaims()<br>
+            {<br>
+                &nbsp;   &nbsp; &nbsp;  &nbsp;  &nbsp; &nbsp;return [];<br>
+            }<br>
+           </figure>
+        </div>
+    </section>
+
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>17º) Configure o Guard</h2>
+            </header>
+            <p>Abre o config/auth.php</p>
+            <p>Adicione Api ao Guards. Abaixo de web</p>
+           <figure>
+            'guards' => [<br>
+                &nbsp;   &nbsp; &nbsp;  &nbsp;'api' => [<br>
+                &nbsp;   &nbsp; &nbsp;  &nbsp;  &nbsp; &nbsp;'driver' => 'jwt',<br>
+                &nbsp;   &nbsp; &nbsp;  &nbsp;  &nbsp; &nbsp;'provider' => 'users',<br>
+                &nbsp;   &nbsp; &nbsp;  &nbsp;  &nbsp; &nbsp;],<br>
+            ],<br>
+           </figure>
+        </div>
+    </section>
+
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>18º)Crie um Controller</h2>
+            </header>
+            <span>--php artisan make:controller api\AuthController</span>
+            <br>
+            <br>
+            <p>Adicione o Código Abaixo</p>
+           <figure>
+            /**<br>
+            * Get a JWT via given credentials.<br>
+            *<br>
+            * @return \Illuminate\Http\JsonResponse<br>
+            */<br>
+           public function login(Request $request)<br>
+           {<br>
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;$credentials = $request->only(['email', 'password']);<br>
+       
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if (! $token = auth()->guard('api')->attempt($credentials)) {<br>
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return response()->json(['error' => 'Unauthorized'], 401);<br>
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;}<br>
+                  <br>
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return $this->respondWithToken($token);<br>
+           }
+           </figure>
+           <br>
+           <br>
+           <figure>
+            /**<br>
+            * Get the token array structure.<br>
+            *<br>
+            * @param  string $token<br>
+            *<br>
+            * @return \Illuminate\Http\JsonResponse<br>
+            */<br>
+           protected function respondWithToken($token)<br>
+           {<br>
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return response()->json([<br>
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;'access_token' => $token,<br>
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;'token_type' => 'bearer',<br>
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;'expires_in' => auth()->guard('api')->factory()->getTTL() * 60<br>
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;]);<br>
+           }<br>
+           </figure>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>19º) Configure a Rota de Login</h2>
+            </header>
+            <p>Entre em routes/api.php</p>
+           <figure>
+            Route::post('user_token', 'App\Http\Controllers\api\AuthController@login')
+            ->name('login');<br>
+           </figure>
+           <p>Testar no Postman = http://localhost/api_laravel_9_jwt/public/api/user_token</p>
+           <br>
+           <img src="imagens/postman_login.PNG" alt="">
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>20º) Crie um Middleware para Proteger as Rotas</h2>
+            </header>
+            <span>--php artisan make:middleware apiProtectedRoute</span>
+        </div>
+    </section>
+
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>21º)Configure o Middleware</h2>
+            </header>
+            <p>Acesse http/Middleware/apiProtectedRoute e Adicione o Código Abaixo</p>
+            <figure>
+            namespace App\Http\Middleware;<br>
+
+            use Closure;<br>
+            use Illuminate\Http\Request;<br>
+            use Tymon\JWTAuth\Facades\JWTAuth;<br>
+            use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
+            <br>
+            <br>
+
+
+            class apiProtectedRoute extends BaseMiddleware<br>
+            {<br>
+            /**
+                * Handle an incoming request.<br>
+                *
+                * @param  \Illuminate\Http\Request  $request<br>
+                * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next<br>
+                * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse<br>
+                * <br><br>
+                *@param  \Illuminate\Http\Request  $request<br>
+                * @param  \Closure  $next<br>
+                * @return mixed<br>
+                */<br><br>
+            public function handle(Request $request, Closure $next)<br>
+            {<br>   
+                try {<br>
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;$user = JWTAuth::parseToken()->authenticate();<br>
+                }catch (\Exception $e){<br>
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException){<br>
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; return response()->json(['status' => 'Token is Invalid']);<br>
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException){<br>
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; return response()->json(['status' => 'Token is Expired']);<br>
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }else{<br>
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; return response()->json(['status' => 'Authorization Token not found']);<br>
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }<br>
+                }<br><br>
+
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return $next($request);<br>
+            }<br>   
+            }<br>
+            </figure>
+        </div>
+    </section>
+
+    
+    <section>
+        <div class="container">
+            <header>
+                <h2>22º) Coloque um Nome no Middleware</h2>
+            </header>
+            <p>vai no http/kernel.php e dá um nome para o middleware</p>
+           <figure>
+            protected $routeMiddleware = [<br>
+              ....<br>
+              ....<br>
+              ....<br>
+              'apiJwt'=> \App\Http\Middleware\apiProtectedRoute::class,<br>
+            ];<br>
+           </figure>
+        </div>
+    </section>
+
+   
+    <section>
+        <div class="container">
+            <header>
+                <h2>23º) Proteja as Rotas com o Middleware Criado</h2>
+            </header>
+            <p>Entra em Route/api.php</p>
+           <figure>
+            Route::group(['middleware'=>['apiJwt']], function () {<br>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Route::get('livros', 'App\Http\Controllers\api\LivrosController\LivrosController@index')->name('listar_livros');<br>      
+          }); 
+           </figure>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>24º) Adicionar o Método logout no AuthController</h2>
+            </header>
+            <p>Entra no controller/api/AuthController.php e adiciona o código abaixo</p>
+           <figure>
+                /**<br>
+                * Log the user out (Invalidate the token).<br>
+                *<br>
+                * @return \Illuminate\Http\JsonResponse<br>
+                */<br>
+            public function logout()<br>
+            {<br>
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; auth()->guard('api')->logout();<br>
+        
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; return response()->json(['message' => 'Successfully logged out']);<br>
+            }<br>
+           </figure>
+        </div>
+    </section>
+
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>25º) Inserir a Rota de Logout na Api</h2>
+            </header>
+            <p>Entra em Route/api.php</p>
+           <figure>
+            Route::group(['middleware'=>['apiJwt']], function () {<br>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Route::post('auth/logout', 'App\Http\Controllers\api\AuthController@logout') ->name('logout');<br>     
+          }); 
+           </figure>
+        </div>
+    </section>
+
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>26º)Teste com Postman</h2>
+            </header>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>Login</h2>
+            </header>
+            <img src="imagens/postman_login.PNG" alt="">
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>Listar</h2>
+            </header>
+            <img src="imagens/postman_listar_dados_autenticado.PNG" alt="">
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>Logout</h2>
+            </header>
+            <img src="imagens/postman_logout.PNG" alt="">
+        </div>
+    </section>
+
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>Verificar se o Token foi Destruido</h2>
+            </header>
+            <img src="imagens/postman_token_destruido.PNG" alt="">
+        </div>
+    </section>
+
+     
+</body>
+</html>

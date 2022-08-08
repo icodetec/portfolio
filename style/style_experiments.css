@@ -1,0 +1,335 @@
+*
+{
+  margin: 0;
+  padding: 0;
+  box-sizing: 0;
+  text-decoration: none;
+  list-style: none;
+  font-family: var(--primary-font);
+}
+body{
+  font-size: var(--font-size);
+  background: var(--primary-color);
+}
+.topo
+{ 
+  display: var(--topo_display);
+  justify-content: var(--topo_justify-content);
+  padding: var(--topo_padding);
+  background: var(--primary-color);
+  border-bottom: var(--topo_border-bottom);
+}
+.topo h1, h2
+{ 
+  font-family: var(--second-font);
+  font-size: 1.5em;
+  color:  var(--second-color);
+}
+.topo h1 span
+{
+  background:var(--topo_background_title);   
+  width: 30px;
+  height: 30px;
+  display: inline-block;  
+  border-radius: 50%;
+  text-align: center;
+  line-height: 1.5; 
+}
+.container_main
+{
+  width: var(--main_width);
+  height: var(--main_height);
+  background-image: var(--main_background-image);
+  background-color: #cccccc;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: var(--main_margin);
+  display: flex;
+  align-items: center;
+}
+.container{
+  width: 390px;/*370*/
+  height: 535px;
+  position: relative;
+  margin: 0px auto;
+  overflow: hidden;
+}
+.container_cards
+{
+  width: 390px;
+  position: absolute;
+  top:0px;
+  left: 0;
+  right: 0;
+  margin: auto; 
+  padding-top: 20px;
+  transition: 0.5s;
+}
+.card_experiments{
+  width: 360px;
+  height: 500px;
+  display: flex;
+  background: var(--primary-color);
+  margin:0px auto;
+  margin-bottom: 60px;
+  border:0px;
+  border-radius: 20px;
+  box-shadow: var(--box_shadow_card) var(--primary-color_card);
+}
+.card_experiments:nth-of-type(2)
+{ 
+  box-shadow: var(--box_shadow_card) var(--second-color_card);
+}
+.card_experiments:nth-of-type(3)
+{ 
+  box-shadow: var(--box_shadow_card) var(--third-color_card);
+}
+.card_experiments:nth-of-type(4)
+{ 
+  box-shadow: var(--box_shadow_card) var(--third-color_card);
+}
+.card_experiments:nth-of-type(5)
+{ 
+  box-shadow: var(--box_shadow_card) var(--third-color_card);
+}
+.card_experiments h3 
+{
+  color: #fff;
+  font-size: 2.5em;
+  margin-top: 85px;
+  margin-left: 210px;
+  position: absolute;
+  writing-mode: vertical-rl;
+}
+.tube {
+  width: 50px;
+  height: 330px;
+  position: relative;
+  overflow: visible;
+  border-radius: 0px 0px 40px 40px/0 0 50px 50px;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  margin: 84px auto;
+}
+.tube__top {
+  position: absolute;
+  left: -7px;
+  top: -7px;
+  width: calc(100% + 20px);
+  height: 10px;
+  border-radius: 50rem;
+  background-color: #272822;
+}
+
+
+
+/***Reflexo**/
+.tube .shine {
+  position: absolute;
+  left: 20%;
+  top: 0;
+  width: 10%;
+  height: 100%;
+  z-index: 90;
+  opacity: .2;
+}
+.tube .shine::before, .tube .shine::after {
+  content: "";
+  position: absolute;
+  background-color: #fff;
+  border-radius: 50rem;
+  top: 10%;
+  height: 40%;
+  width: 100%;
+}
+.tube .shine::after {
+  height: 15%;
+  top: 60%;
+  bottom: 0;
+}
+.tube::before, .tube__outer-glass {
+  border-radius: 0px 0px 40px 40px/0 0 50px 50px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  content: "";
+  overflow: hidden;
+  border: 3px solid #272822;
+  background-color: #272822;
+  
+}
+.liquid
+{
+  position: relative;
+  margin-top: 130px;
+}
+.liquid .percentage::before {
+  position: absolute;
+  content: "";
+  width: 200px;
+  height: 200px;
+  border-radius: 75px;
+  animation: liquid 4s infinite linear;
+  transform: translateX(-50%);
+  left: 50%;
+  top: 0;
+  background: var(--primary-color_card);
+  filter: drop-shadow(0 0 100px var(--primary-color_card));
+  transition: 1s;
+}
+.card_experiments:nth-of-type(2) .liquid .percentage::before
+{
+  background: var(--second-color_card);
+  filter: drop-shadow(0 0 100px var(--second-color_card));
+}
+.card_experiments:nth-of-type(3) .liquid .percentage::before
+{
+  background: var(--third-color_card);
+  filter: drop-shadow(0 0 100px var(--third-color_card));
+}
+.card_experiments:nth-of-type(4) .liquid .percentage::before
+{
+  background: var(--third-color_card);
+  filter: drop-shadow(0 0 100px var(--third-color_card));
+}
+.card_experiments:nth-of-type(5) .liquid .percentage::before
+{
+  background: var(--third-color_card);
+  filter: drop-shadow(0 0 100px var(--third-color_card));
+}
+.liquid .percentage::after, .liquid .percentage::before {
+  position: absolute;
+  content: "";
+  width: 200px;
+  height: 200px;
+  border-radius: 75px;
+  animation: liquid 4s infinite linear;
+  animation-direction: normal;
+  transform: translateX(-50%);
+  left: 50%;
+  top: 0;
+  background: var(--primary-color_card);
+  filter: drop-shadow(0 0 100px var(--primary-color_card));
+  transition: 1s;
+}
+.card_experiments:nth-of-type(2) .liquid .percentage::after
+{
+  background: var(--second-color_card);
+  filter: drop-shadow(0 0 100px var(--second-color_card));
+}
+.card_experiments:nth-of-type(3) .liquid .percentage::after
+{
+  background: var(--third-color_card);
+  filter: drop-shadow(0 0 100px var(--third-color_card));
+}
+.card_experiments:nth-of-type(4) .liquid .percentage::after
+{
+  background: var(--third-color_card);
+  filter: drop-shadow(0 0 100px var(--third-color_card));
+}
+.card_experiments:nth-of-type(5) .liquid .percentage::after
+{
+  background: var(--third-color_card);
+  filter: drop-shadow(0 0 100px var(--third-color_card));
+}
+.liquid .percentage::after {
+  opacity: .4;
+  animation-direction: reverse;
+  border-radius: 60px;
+}
+
+@keyframes liquid
+{
+  0%
+  {
+    transform:translateX(-50%) rotate(0deg)
+  }
+  100%
+  {
+    transform:translateX(-50%) rotate(360deg)
+  }
+}
+
+.container_button {
+  display: flex;
+  width: 320px;
+  height: auto;
+  margin: 430px auto;
+  left: 0; 
+  right: 0;
+  position: absolute;
+}
+.container_button div{
+  width: 50px;
+  font-size: 1em;
+  line-height: 50px;
+  border: 1px solid;
+  border-radius: 50%;
+  margin: 0 auto;
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+}
+.card_experiments .container_button div
+{
+  color: var(--primary-color_card);
+}
+.card_experiments .container_button a
+{
+  color: var(--primary-color_card);
+  padding: 10px;
+}
+.card_experiments:nth-of-type(2) .container_button div
+{
+  color: var(--second-color_card);
+}
+.card_experiments:nth-of-type(2) .container_button a
+{
+  color: var(--second-color_card);
+}
+.card_experiments:nth-of-type(3) .container_button div
+{
+  color: var(--third-color_card);
+}
+.card_experiments:nth-of-type(3) .container_button a
+{
+  color: var(--third-color_card);
+}
+.card_experiments:nth-of-type(4) .container_button div
+{
+  color: var(--third-color_card);
+}
+.card_experiments:nth-of-type(4) .container_button a
+{
+  color: var(--third-color_card);
+}
+.card_experiments:nth-of-type(5) .container_button div
+{
+  color: var(--third-color_card);
+}
+.card_experiments:nth-of-type(5) .container_button a
+{
+  color: var(--third-color_card);
+}
+.footer_experiments
+{
+  background: var(--primary-color);
+  color: var(--second-color);
+  font-size: 1.5em;
+  text-align: center;
+  padding: var(--topo_padding);
+  border-top: var(--topo_border-bottom);
+}
+@media screen and (max-width:380px)
+{ 
+  .container {
+    width: 97%;
+  }  
+  .container_cards
+  {
+    width: 329px;
+  }
+  .card_experiments {
+    width: 100%;
+  }  
+}

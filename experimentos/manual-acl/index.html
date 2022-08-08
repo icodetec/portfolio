@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manual - ACL</title>
+    <meta name="author" content="">
+    <!-- css -->
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+
+    <script src="highlight/highlight.min.js"></script>
+    <link rel="stylesheet" href="highlight/a11y-dark.min.css">   
+</head>
+<body>
+
+    
+    
+    <section>
+        <div class="container">
+            <header>
+                <h1>Manual - ACL</h1>
+            </header>
+        </div>
+    </section>
+
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>Baixe o código completo</h2>
+            </header>
+            <div class="button_dawload">
+                <a target="_blank" href="https://github.com/icodetec/acl_laravel">Dawnload</a><br>
+            </div>
+            <span>Obs: insira o banco de dados no seu servidor, Veja o login e a senha dos usuários(passo 9º), Veja os testes dos usuários(passo 11º)<br>
+          </span><br>
+        </div>
+    </section>
+
+    
+    <section>
+        <div class="container">
+            <header>
+                <h2>1º) Baixe o Laravel</h2>
+            </header>
+            <figure class="highlight">
+                <span>-- composer create-project laravel/laravel acl-laravel<br>
+                </span>
+            </figure>
+        </div>
+    </section>
+
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>2º) Crie um banco de dados</h2>
+            </header>
+            <img src="imagens/banco_de_dados.PNG" alt="">
+            <p>2.1) Configure o arquivo .Env</p>
+            <figure class="highlight"></figure>
+            
+            <pre><code class="language-php">
+                DB_CONNECTION=mysql
+                DB_HOST=127.0.0.1
+                DB_PORT=3306
+                DB_DATABASE=acl
+                DB_USERNAME=root
+                DB_PASSWORD=
+            </code></pre>
+            <p>OBS: A "collation" do seu arquivo database.PHP(dentro da pasta config) deve ser igual a "collation(utf8mb4_unicode_ci)" do seu banco de dados.</p>
+        </div>
+    </section>
+
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>3º) Autenticação</h2>
+            </header>
+            <p>3.1) Acesse a pasta do laravel</p>
+            <span>---cd acl-laravel</span>
+            <p>3.2) Baixe o pacote breeze e faça a instalação do pacote</p>
+            <span>--composer require laravel/breeze --dev</span><br>
+            <span>--php artisan breeze:install</span><br>
+            <span>--php artisan migrate</span>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>4º) Estilizar o sistema</h2>
+            </header>
+            <p>4.1) Faça o dawload da pasta "ASSETS" e insira dentro de public.</p>
+            <div class="button_dawload">
+                <a target="_blank" href="https://github.com/icodetec/acl_laravel/tree/main/arquivos">Dawnload</a><br>
+            </div> 
+            <p>4.1) Faça o dawload da pasta "VIEWS" e faça a substituição dentro de resources.</p>
+            <div class="button_dawload">
+                <a target="_blank" href="https://github.com/icodetec/acl_laravel/tree/main/arquivos">Dawnload</a><br>
+            </div>   
+        </div>    
+    </section>
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>5º) Configure as Rotas</h2>
+            </header>
+            <p>5.1º)  Insira o código abaixo no arquivo de rotas "web.php" </p>
+            <pre><code class="language-php">
+                Route::get('/', function () {
+                    return view('welcome');
+                });
+                
+                Route::get('/dashboard', function () {
+                    return view('dashboard');
+                })->middleware(['auth'])->name('dashboard');
+                
+                require __DIR__.'/auth.php';
+                
+                Route::group(['middleware' => 'auth'], function(){
+                
+                    Route::prefix('admin')->group(function () {
+                    
+                    //UserController
+                    Route::get('users', 'App\Http\Controllers\Painel\UserController@index')->name('admin.users');
+                    
+                    //PostController
+                    Route::get('posts', 'App\Http\Controllers\Painel\PostController@index')->name('admin.post');
+                    
+                    //PermissionController	
+                    Route::get('permission', 'App\Http\Controllers\Painel\PermissionController@index')->name('admin.permission');
+                    
+                    //RoleController
+                    Route::get('role', 'App\Http\Controllers\Painel\RoleController@index')->name('admin.role');
+                    
+                    //PainelController
+                    Route::get('/', 'App\Http\Controllers\Painel\PainelController@index');
+                
+                    });
+                
+                });
+            </code></pre>    
+            <p>5.2º) CONFIGURE AS ROTAS DO FORMULÁRIO LOGIN/CADASTRO</p>
+            <p>Acesse o arquivo "RouteserviceProvider.php" e altere o Home de "/dashboard" para  "/admin"</p>
+            
+            <pre><code class="language-php">
+                //public const HOME = '/dashboard';
+                public const HOME = '/admin';
+            </code></pre>           
+        </div>
+    </section>
+
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>6º) Crie as Models e as Migrates</h2>
+            </header>
+            <span>--php artisan make:model Post -m</span><br>
+            <span>--php artisan make:model Role -m</span><br>
+            <span>--php artisan make:model Permission -m</span><br>
+            
+            <p>6.1) Insira o código abaixo na MODEL "PERMISSION"</p>
+            <pre><code class="language-php">
+                class Permission extends Model
+                {
+                    use HasFactory;
+
+                    public function roles()
+                    {
+                    return $this->belongsToMany(Role::class);
+                    }
+                }
+            </code></pre>
+
+            <p>6.2) Insira o código abaixo na MODEL "ROLE"</p>
+            <pre><code class="language-php">
+                class Role extends Model
+                {
+                    use HasFactory;
+
+                    public function permissions()
+                    {
+                        return $this->belongsToMany(Permission::class);
+                    }
+                }
+            </code></pre>
+
+
+            <p>6.3) Insira o código abaixo na MODEL "USER"</p>
+            <pre><code class="language-php">
+                
+                public function roles()
+                {
+                    return $this->belongsToMany(Role::class);
+                }
+              
+           
+               public function hasPermission ($permission)
+               { 
+                   return $this->hasAnyRoles($permission->roles);
+               }
+               
+           
+                public function hasAnyRoles ($roles)
+                {
+                  
+                   if(is_array($roles) || is_object($roles) )
+                   {
+                         
+                        foreach ($roles as $role) 
+                        {
+                        return !! $roles->intersect($this->roles)->count();
+                        }
+                   }
+                     return $this->roles->contains('name', $roles);
+                 }
+            </code></pre>
+
+
+            <br>
+            <br>
+            <br>
+
+            <p>6.4) Insira o código abaixo na MIGRATE "POST"</p>
+            <pre><code class="language-php">
+                public function up()
+                {
+                    Schema::create('posts', function (Blueprint $table) {
+                        $table->increments('id');
+                        $table->unsignedBigInteger('user_id');
+                        $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+                        $table->string('title', 200);
+                        $table->text('description');
+                        $table->timestamps();
+                    });
+                }
+            </code></pre>
+            <p>6.5) Insira o código abaixo na MIGRATE "ROLE"</p>
+            <pre><code class="language-php">
+                public function up()
+                {
+                    Schema::create('roles', function (Blueprint $table) {
+                        $table->bigIncrements('id');
+                        $table->string('name', 50);
+                        $table->string('label', 50);
+                        $table->timestamps();
+                    });
+            
+                    Schema::create('role_user', function (Blueprint $table) {
+                        $table->bigIncrements('id');
+                        $table->bigInteger('role_id')->unsigned();
+                        $table->bigInteger('user_id')->unsigned();
+                        
+            
+                        $table->foreign('role_id')
+                              ->references('id')
+                              ->on('roles')
+                              ->onDelete('cascade');
+                        
+                        $table->foreign('user_id')
+                              ->references('id')
+                              ->on('users')
+                              ->onDelete('cascade');            
+                       
+                    });
+                }
+            </code></pre>
+            <p>6.6) Insira o código abaixo na MIGRATE "PERMISSION"</p>
+            <pre><code class="language-php">
+                public function up()
+                {
+                    Schema::create('permissions', function (Blueprint $table) {
+                        $table->bigIncrements('id');
+                        $table->string('name', 50);
+                        $table->string('label', 100);
+                        $table->timestamps();
+                    });
+
+                    Schema::create('permission_role', function (Blueprint $table) {
+                        $table->bigIncrements('id');
+                        $table->bigInteger('permission_id')->unsigned();
+                        $table->bigInteger('role_id')->unsigned();
+                                        
+                        $table->foreign('permission_id')
+                            ->references('id')
+                            ->on('permissions')
+                            ->onDelete('cascade');
+
+                        $table->foreign('role_id')
+                            ->references('id')
+                            ->on('roles')
+                            ->onDelete('cascade');                  
+                    
+                    });
+                }
+            </code></pre>
+            <p>6.7) Execute o comando abaixo para criar as tabelas.</p>
+            <span>--php artisan migrate</span>
+        </div>
+    </section>
+
+
+    <section>
+        <div class="container">
+            <header>
+               <h2>7º) Crie os Controllers</h2>
+            </header><br>
+           
+
+            <span>--php artisan make:controller Painel\PainelController</span><br>
+            <span>--php artisan make:controller Painel\PermissionController</span><br>
+            <span>--php artisan make:controller Painel\PostController</span><br>
+            <span>--php artisan make:controller Painel\RoleController</span><br>
+            <span>--php artisan make:controller Painel\UserController</span><br>
+
+            <p>7.1) Insira o código abaixo no Controller "PainelController"</p>
+            <pre><code class="language-php">
+                namespace App\Http\Controllers\Painel;
+
+                use Illuminate\Http\Request;
+                use App\Http\Controllers\controller;
+                use App\Models\User;
+                use App\Models\Role;
+                use App\Models\Permission;
+                use App\Models\Post;
+
+                class PainelController extends Controller
+                {
+                    public function index()
+                    {
+                        $totalUser = User::count();
+                        $totalRoles = Role::count();
+                        $totalPermission = Permission::count();
+                        $totalPost = Post::count();
+                        return view ('painel.home.index', compact('totalUser', 'totalRoles', 'totalPermission', 'totalPost'));
+                    }
+                }
+            </code></pre>
+
+            <p>7.2) Insira o código abaixo no Controller "PermissionController"</p>
+            <pre><code class="language-php">
+                namespace App\Http\Controllers\Painel;
+
+                use Illuminate\Http\Request;
+                use App\Http\Controllers\controller;
+                use App\Models\permission;
+                use Gate;
+
+                class PermissionController extends Controller
+                {
+                    private $permission;
+
+                    public function __construct(Permission $permission) 
+                    {
+                    
+                        $this->permission = $permission;  
+                    }
+
+
+                    public function index()
+                    { 
+
+                        if(Gate::denies('adm'))
+                        {
+                            //abort(403, 'Você não pode acessar esse conteudo'); 
+                            return redirect()->back(); 
+                        }
+                            $permissions = $this->permission->all();
+                        return view ('painel.permissions.index', compact('permissions'));
+                    }
+
+                }
+            </code></pre>
+            <p>7.3) Insira o código abaixo no Controller "PostController"</p>
+            <pre><code class="language-php">
+
+                namespace App\Http\Controllers\Painel;
+                use Illuminate\Http\Request;
+                use App\Http\Controllers\controller;
+                use App\Models\Post;
+                use Gate;
+
+                class PostController extends Controller
+                {
+
+                    private $post;
+
+                    public function __construct(Post $post) 
+                    {
+                        $this->post = $post; 
+                    }
+
+                    public function index()
+                    {
+                        $posts = $this->post->all();
+
+                        if(Gate::denies('view_post'))
+                        {
+                            return redirect()->back();
+                            //abort(403, 'Você não pode acessar esse conteudo');
+                        }
+                        return view ('painel.posts.index', compact('posts'));
+                    }
+                };
+            </code></pre>
+
+            <p>7.4) Insira o código abaixo no Controller "RoleController"</p>
+            <pre><code class="language-php">
+                namespace App\Http\Controllers\Painel;
+
+                use Illuminate\Http\Request;
+                use App\Http\Controllers\controller;
+                use App\Models\Role;
+                use Gate;
+
+                class RoleController extends Controller
+                {
+                private $role;
+
+                public function __construct(Role $role) 
+                {
+                    $this->role = $role; 
+                }
+
+                public function index()
+                {
+                    $roles = $this->role->all();
+
+                    if(Gate::denies('adm'))
+                    {
+                        return redirect()->back();
+                        //abort(403, 'Você não pode acessar esse conteudo');
+                    }
+                    
+                    return view ('painel.roles.index', compact('roles'));
+                }
+            }
+            </code></pre>
+
+            <p>7.5)  Insira o código abaixo no Controller "UserController"</p>
+            <pre><code class="language-php">
+                namespace App\Http\Controllers\Painel;
+
+                use App\Http\Controllers\Controller;
+                use Illuminate\Http\Request;
+                use App\Models\User;
+                use Gate;
+
+                class UserController extends Controller
+                {
+                
+                    private $user;
+
+                    public function __construct(User $user) 
+                    {
+                        $this->user = $user; 
+                    }
+
+
+                    public function index()
+                    {
+                        $users = $this->user->all();
+                        if(Gate::denies('edit_post'))
+                        {
+                            return redirect()->back();
+                        //abort(403, 'Você não pode acessar esse conteudo');
+                        }
+                        return view ('painel.user.index', compact('users'));
+                    }
+                }    
+            </code></pre> 
+           
+        </div>
+    </section>
+
+
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>8º) Configure o Provider</h2>
+            </header>
+            <p>8.1)  Insira o código abaixo no Provider "AuthserviceProvider.php"</p>
+            <pre><code class="language-php">
+                namespace App\Providers;
+
+                use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+                use Illuminate\Support\Facades\Gate;
+                use App\Models\Post;
+                use App\Models\User;
+                use App\Models\Permission;
+                use App\Models\Role;
+
+                class AuthServiceProvider extends ServiceProvider
+                {
+                    /**
+                    * The policy mappings for the application.
+                    *
+                    * @var array
+                    */
+                    protected $policies = [
+                        
+                    ];
+
+                    /**
+                    * Register any authentication / authorization services.
+                    *
+                    * @return void
+                    */
+                    public function boot()
+                    {
+                    
+
+
+                        
+                        $permissions = Permission::with('roles')->get();
+                        
+                        foreach ($permissions as $permission){
+                           
+                        Gate::define($permission->name,function (User $user) use ($permission){
+                        
+                            return $user->hasPermission($permission);
+                        });
+                        }
+
+                        
+                        Gate::before(function ($user, $ability) {
+                              
+                        if ($user->hasAnyRoles('adm')){
+                          return true;
+                        }
+                        });
+                    }
+                }
+
+            </code></pre>            
+        </div>
+    </section>
+
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>9º) Cadastre os Usuários</h2>
+            </header>
+            <p>9.1) Acesse o formulário "Register" e cadastre alguns dados.</p>
+            <p>Ex:</p>    
+            <span>
+              joão pedro = joao@gmail.com = joao1234
+            </span><br>   
+            <span>
+               maria  =  maria@gmail.com   =  maria1234
+            </span>
+            <span><br>
+               roberto = roberto@gmail.com = roberto1234
+            </span>  
+        </div>    
+    </section>
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>10º) Cadastro das informações</h2>
+            </header>
+            <span> Seria legal criar um formulário para o ADM cadastrar essas informações, mas eu vou deixar isso para um futuro upgrade.</span>
+            <p>10.1) Cadastro dos usuários(feito anteriormente no formulário cadastro do breeze)</p>
+              <img src="imagens/cadastro_user.PNG" alt="">
+            <p>10.2) Cadastre algumas notícias(posts). Créditos: canaltech</p>
+             <img src="imagens/cadastro_post.PNG" alt="">
+            <p>10.3) Cadastre as "ROLES"</p>
+             <img src="imagens/cadastro_roles.PNG" alt="">
+            <p>10.4) Cadastre as "ROLES_USER"</p>
+             <img src="imagens/cadastro_role_user.PNG" alt="">
+            <p>10.5) Cadastre as "PERMISSION"</p>
+             <img src="imagens/cadastro_permissions.PNG" alt="">
+            <p>10.6) Cadastre as "PERMISSION_ROLE"</p>
+             <img src="imagens/cadastro_permissions_role.PNG" alt="">         
+
+             <p>10.7) visão geral do sistema.</p><br>
+            <span>
+                joao@gmail.com  =  (ADM - visualiza tudo) 
+            </span><br>   
+            <span>
+                maria@gmail.com =  (EDITOR - visualiza usuários e notícias)
+            </span>
+            <span><br>
+                roberto@gmail.com = (USUÁRIO - visualiza as notícias)
+            </span>
+
+        </div>
+    </section>
+
+
+    <section>
+        <div class="container">
+            <header>
+                <h2>11º) Resultado Esperado</h2>
+                <span>ADM - visualiza tudo.</span><br>
+                <img src="imagens/adm.PNG" alt=""><br> 
+                <span>EDITOR - visualiza usuários e notícias.</span><br>
+                <img src="imagens/editor.PNG" alt=""><br> 
+                <span>USUÁRIO - visualiza as notícias.</span><br>
+                <img src="imagens/user.PNG" alt=""> 
+            </header>           
+        </div>
+    </section>
+
+   
+    <script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>
